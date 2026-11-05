@@ -24,3 +24,34 @@ The investigation focuses on identifying identity security risks, evaluating acc
 **Scenario:** Fictional employee offboarding security incident
 
 **Purpose:** Hands-on cybersecurity training and professional portfolio demonstration
+
+
+## Security Investigation Summary
+
+### Identified Security Issue
+
+During a simulated employee offboarding assessment at Harborview Accounting Services, a former employee's Microsoft Entra ID account was found to be enabled after departure.
+
+The account also retained membership in two security groups:
+
+- `SG-Accounting-Staff`
+- `SG-Finance-Documents`
+
+These conditions represented an identity security risk because the former employee's account remained active and retained group-based access eligibility.
+
+### Remediation Performed
+
+The following administrative remediation actions were completed:
+
+1. Disabled the former employee's Microsoft Entra ID account.
+2. Revoked the account's active sign-in sessions.
+3. Removed the account from both identified security groups.
+4. Reviewed Microsoft Entra ID audit logs to verify the administrative changes.
+
+### Assessment Outcome
+
+The identified account and group membership risks were remediated and verified through Microsoft Entra ID administrative and audit evidence.
+
+No unauthorized access or data exposure was established during the assessment. The root cause of the offboarding failure was not confirmed, and additional access paths were outside the verified remediation scope.
+
+The assessment demonstrates practical IAM investigation, access remediation, audit verification, and security risk documentation skills.
