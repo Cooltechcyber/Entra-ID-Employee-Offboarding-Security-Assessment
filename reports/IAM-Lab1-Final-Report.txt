@@ -1,0 +1,279 @@
+IDENTITY AND ACCESS MANAGEMENT (IAM)
+SECURITY ASSESSMENT REPORT
+
+Client: Harborview Accounting Services
+Assessment: Employee Offboarding Failure
+Lab: IAM Lab 1
+Assessment Date: November 3, 2026
+
+Prepared By: IAM Security Consultant (Training Simulation)
+
+Report Purpose:
+Document the investigation, security risks, remediation actions, verification evidence, and recommended improvements associated with a simulated employee offboarding failure.
+
+Classification: Training / Fictional Client Environment
+
+--------------------------------------------------
+
+1. EXECUTIVE SUMMARY
+
+An identity and access management (IAM) assessment was conducted for Harborview Accounting Services in a simulated Microsoft Entra ID environment.
+
+The assessment identified an employee offboarding control failure involving David Miller, a former employee whose user account remained enabled and retained membership in two security groups: SG-Accounting-Staff and SG-Finance-Documents.
+
+The initial security risk was assessed as High (provisional) because the account could potentially have been used to access organizational resources if valid credentials and permissions were available. No unauthorized access or data exposure was established during the investigation.
+
+Remediation included disabling the account, revoking sign-in sessions, and removing both identified security group memberships. Microsoft Entra audit records and subsequent account checks supported successful completion of these actions.
+
+The residual risk associated with the verified access paths was assessed as Low (provisional). Other potential access paths and the underlying organizational root cause were not fully assessed.
+
+The assessment recommends formal offboarding procedures, lifecycle automation, periodic access reviews, and exception monitoring to reduce the likelihood of similar failures.
+
+--------------------------------------------------
+
+2. ASSESSMENT SCOPE
+
+Client: Harborview Accounting Services
+Environment: Microsoft Entra ID training tenant
+Assessment Type: Employee Offboarding Security Assessment
+
+IN-SCOPE SYSTEMS AND CONTROLS
+
+- Microsoft Entra ID user account management
+- User account enablement and disablement
+- Security group membership management
+- User sign-in log review
+- Microsoft Entra audit log review
+- Sign-in session revocation
+- Microsoft Entra administrative role assignment review
+- Enterprise application assignment review
+- Registered authentication method review
+- Post-remediation access verification
+
+IN-SCOPE USER
+
+David Miller — Former employee (simulated)
+Department: Accounting
+Job Title: Tax Preparer
+
+IN-SCOPE SECURITY GROUPS
+
+- SG-Accounting-Staff
+- SG-Finance-Documents
+
+ASSESSMENT LIMITATIONS
+
+This assessment was performed in a fictional training environment. It did not include live production systems, actual financial documents, application-local accounts, or a comprehensive review of all possible access paths. No unauthorized access or data exposure was established.
+
+--------------------------------------------------
+
+3. SECURITY FINDINGS
+
+FINDING IAM-001: INCOMPLETE EMPLOYEE OFFBOARDING
+
+Severity: High (provisional)
+Affected User: David Miller
+Department: Accounting
+
+Description:
+The assessment identified a simulated former employee whose Microsoft Entra ID account remained enabled after departure.
+
+The account also retained membership in the following security groups:
+- SG-Accounting-Staff
+- SG-Finance-Documents
+
+Security Risk:
+An enabled former employee account may permit unauthorized authentication if valid credentials remain available. Retained security group memberships may also provide access to organizational resources where permissions have been configured.
+
+Evidence:
+- Account enabled = Yes during initial investigation.
+- Both identified security group memberships were present.
+- No sign-in records were found during the reviewed investigation.
+
+Impact:
+Potential unauthorized access to business systems or information. Actual unauthorized access and data exposure were not demonstrated.
+
+Finding Status: Remediated and verified for the identified account and group memberships.
+
+--------------------------------------------------
+
+4. REMEDIATION ACTIONS
+
+Affected User: David Miller
+Environment: Microsoft Entra ID Training Tenant
+
+ACTION 1: DISABLE USER ACCOUNT
+The Microsoft Entra ID account was disabled to prevent new sign-ins using the affected identity.
+Result: Completed
+
+ACTION 2: REVOKE SIGN-IN SESSIONS
+The administrator initiated session revocation to invalidate eligible refresh-token-based sessions. Previously issued access tokens may remain valid until expiration.
+Result: Completed
+
+ACTION 3: REMOVE ACCOUNTING GROUP MEMBERSHIP
+David Miller was removed from SG-Accounting-Staff.
+Result: Completed
+
+ACTION 4: REMOVE FINANCE DOCUMENTS GROUP MEMBERSHIP
+David Miller was removed from SG-Finance-Documents.
+Result: Completed
+
+REMEDIATION VERIFICATION
+- Account enabled = No.
+- Both identified security group memberships were absent.
+- Microsoft Entra audit events supported successful account disablement, group removal, and refresh-token validity timestamp update.
+
+REMEDIATION STATUS
+Completed and verified for the identified Microsoft Entra account and two security group memberships.
+
+--------------------------------------------------
+
+5. AUDIT EVIDENCE AND VERIFICATION
+
+Evidence Source: Microsoft Entra Admin Center
+Assessment Date: November 3, 2026
+Affected User: David Miller
+
+AUDIT EVENT 1: USER ACCOUNT DISABLEMENT
+Activity: Update user
+Modified Property: accountEnabled
+Previous Value: true
+New Value: false
+Verification: Account disablement recorded in audit logs.
+
+AUDIT EVENT 2: ACCOUNTING GROUP REMOVAL
+Activity: Remove member from group
+Group: SG-Accounting-Staff
+Status: Success
+
+AUDIT EVENT 3: FINANCE DOCUMENTS GROUP REMOVAL
+Activity: Remove member from group
+Group: SG-Finance-Documents
+Status: Success
+
+AUDIT EVENT 4: SESSION REVOCATION SUPPORTING EVIDENCE
+Activity: Update StsRefreshTokenValidFrom Timestamp
+Target: David Miller
+Status: Success
+Limitation: Does not prove immediate expiration of every previously issued access token.
+
+FINAL VERIFICATION
+- Account enabled = No.
+- David Miller was not listed in either identified security group.
+
+EVIDENCE LIMITATIONS
+No sign-in records were found during the investigation. This does not establish that the account was never used. Other potential access paths were not comprehensively assessed.
+
+Verification Result: Passed for the identified remediation controls.
+
+--------------------------------------------------
+
+6. SECURITY RISK ASSESSMENT
+
+Finding: IAM-001 — Incomplete Employee Offboarding
+Affected User: David Miller
+
+INITIAL RISK RATING: HIGH (PROVISIONAL)
+
+Risk Description:
+The former employee's Microsoft Entra account remained enabled and retained membership in two security groups. This created potential opportunities for unauthorized authentication and resource access if valid credentials and applicable permissions were available.
+
+Potential Business Impact:
+- Unauthorized access to organizational resources
+- Exposure of sensitive business information
+- Failure to enforce timely access termination
+- Increased security and compliance risk
+
+Actual unauthorized access or data exposure was not established.
+
+RESIDUAL RISK RATING: LOW (PROVISIONAL)
+
+Following remediation, the account was disabled, sessions were revoked, and both identified security group memberships were removed. These actions substantially reduced the identified access risk.
+
+Remaining Limitations:
+- Previously issued access tokens may remain valid until expiration.
+- Other possible access paths were not comprehensively assessed.
+- The underlying organizational root cause remains unconfirmed.
+
+Risk Rating Method:
+Both ratings are qualitative training estimates. No organization-approved risk matrix or formal risk acceptance process was applied.
+
+--------------------------------------------------
+
+7. SECURITY RECOMMENDATIONS
+
+RECOMMENDATION 1: FORMAL EMPLOYEE OFFBOARDING PROCEDURE
+Priority: High
+Establish a documented offboarding process requiring authorized HR or management notification, timely account disablement, session revocation, access removal, and verification of completion.
+
+RECOMMENDATION 2: AUTOMATED IDENTITY LIFECYCLE MANAGEMENT
+Priority: High
+Implement an approved workflow integrating employee termination notifications with Microsoft Entra ID account and access management. Include error handling, exception notifications, and completion records.
+
+RECOMMENDATION 3: PERIODIC USER ACCESS REVIEWS
+Priority: High
+Conduct recurring reviews of active accounts and security group memberships. Require managers or resource owners to confirm continued business need and remove unauthorized access.
+
+RECOMMENDATION 4: OFFBOARDING MONITORING AND ALERTS
+Priority: High
+Monitor offboarding completion against verified termination records. Alert IAM or IT Operations personnel when accounts remain enabled or required access removal actions fail.
+
+IMPLEMENTATION CONSIDERATIONS
+Assign accountable control owners, establish measurable completion requirements, test workflows before production deployment, and retain audit evidence.
+
+Recommendation Status: Proposed. These organizational controls were not implemented or tested during this lab.
+
+--------------------------------------------------
+
+
+8. ROOT CAUSE ASSESSMENT
+
+Finding: IAM-001 — Incomplete Employee Offboarding
+Affected User: David Miller
+
+CONFIRMED TECHNICAL CONDITION
+The simulated former employee's Microsoft Entra ID account remained enabled and retained membership in SG-Accounting-Staff and SG-Finance-Documents.
+
+POTENTIAL CONTRIBUTING FACTORS
+- Missing or ineffective HR-to-IT offboarding notification.
+- Incomplete manual account deprovisioning procedures.
+- Lack of automated identity lifecycle controls.
+- Insufficient monitoring for overdue offboarding actions.
+- Inadequate periodic review of active accounts and group memberships.
+
+ROOT CAUSE DETERMINATION
+The underlying organizational root cause could not be confirmed using the available Microsoft Entra ID evidence. The potential contributing factors listed above are hypotheses requiring further investigation.
+
+RECOMMENDED FOLLOW-UP
+Review HR termination notifications, IT service requests, offboarding procedures, ownership assignments, and historical completion records to determine where the process failed.
+
+Root Cause Status: Unconfirmed — Further organizational investigation required.
+
+--------------------------------------------------
+
+9. ASSESSMENT CONCLUSION
+
+The IAM assessment identified an incomplete employee offboarding condition involving the simulated former employee David Miller in the Harborview Accounting Services Microsoft Entra ID training environment.
+
+The affected account remained enabled and retained membership in two security groups after the simulated departure.
+
+The following technical remediation actions were completed:
+- Disabled the affected Microsoft Entra ID account.
+- Revoked sign-in sessions.
+- Removed membership in SG-Accounting-Staff.
+- Removed membership in SG-Finance-Documents.
+
+Microsoft Entra audit events and subsequent account checks supported successful remediation of the identified account and group memberships.
+
+The initial risk was rated High (provisional). The residual risk for the verified access paths was rated Low (provisional).
+
+No actual unauthorized access or data exposure was established. The organizational root cause remains unconfirmed, and other potential access paths were not comprehensively assessed.
+
+Four organizational security improvements were recommended but not implemented during this assessment.
+
+FINAL ASSESSMENT STATUS
+Technical remediation: Completed and verified for the identified controls.
+Organizational corrective actions: Pending evaluation and implementation.
+Formal incident closure and risk acceptance: Not established.
+
+--------------------------------------------------

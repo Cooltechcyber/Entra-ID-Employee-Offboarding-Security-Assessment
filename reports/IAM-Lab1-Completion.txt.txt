@@ -1,0 +1,21 @@
+IAM LAB 1 — EMPLOYEE OFFBOARDING FAILURE
+
+Organization: Harborview Accounting Services (Fictional)
+Assessment Date: November 3, 2026
+
+Status: Technical Remediation and Documentation Complete
+
+Completed Activities:
+- Investigated the former employee's identity and group memberships.
+- Disabled the former employee's account.
+- Revoked active sign-in sessions.
+- Removed identified security group memberships.
+- Verified remediation using Microsoft Entra ID audit records.
+- Completed the final IAM security assessment report.
+- Preserved and verified backup copies of the report and supporting findings.
+
+Remaining Limitations:
+- Formal incident closure and organizational risk acceptance have not been established.
+- The underlying organizational root cause remains unconfirmed.
+- Recommended process improvements have not been implemented.
+- Unauthorized access or data exposure was not established by the available evidence.

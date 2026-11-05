@@ -1,0 +1,323 @@
+IAM LAB 1 — SECURITY FINDING 001
+Client: Harborview Accounting Services
+Affected user: David Miller
+Finding: Former employee account remains enabled
+Expected state: Account disabled following employee termination
+Observed state: Account enabled = Yes
+Risk: Potential unauthorized authentication using an active former employee account
+Evidence source: Microsoft Entra admin center > Users > David Miller > Overview
+Status: Open — remediation not yet performed
+
+
+Security Finding 002
+IAM LAB 1 — SECURITY FINDING 002
+Client: Harborview Accounting Services
+Affected user: David Miller
+Finding: Former employee retains security group memberships
+Expected state: Unnecessary group memberships removed during offboarding
+Observed state: David Miller remains a member of SG-Accounting-Staff and SG-Finance-Documents
+Risk: Potential unauthorized access to resources if permissions are assigned to these groups
+Evidence source: Microsoft Entra admin center > Users > David Miller > Groups
+Status: Open — remediation not yet performed
+
+
+Investigation Record 003
+IAM LAB 1 — INVESTIGATION RECORD 003
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Review of former employee sign-in activity
+Expected state: No successful authentication after employee termination
+Observed state: No sign-in records found in the available Microsoft Entra sign-in logs
+Interpretation: No authentication activity was identified in the available records. This does not prove the account was never used.
+Evidence source: Microsoft Entra admin center > Users > David Miller > Sign-in logs
+Status: Investigation completed — account remediation still pending
+
+
+IAM LAB 1 — REMEDIATION RECORD 004
+Client: Harborview Accounting Services
+Affected user: David Miller
+Related finding: Security Finding 001
+Remediation action: Disabled former employee account
+Additional action: Revoked sign-in sessions
+Verification: Account enabled = No
+Evidence source: Microsoft Entra admin center > Users > David Miller > Overview
+Result: Account disablement verified; session revocation success notification received
+Status: Remediated — account control verified
+
+
+Remediation Record 005
+IAM LAB 1 — REMEDIATION RECORD 005
+Client: Harborview Accounting Services
+Affected user: David Miller
+Related finding: Security Finding 002
+Remediation action: Removed former employee from security groups
+Groups removed: SG-Accounting-Staff and SG-Finance-Documents
+Verification: Neither group appears in David Miller's group membership list
+Evidence source: Microsoft Entra admin center > Users > David Miller > Groups
+Result: Removal from both known security groups independently verified
+Status: Remediated — group membership controls verified
+
+
+Investigation Record 006
+IAM LAB 1 — INVESTIGATION RECORD 006
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Microsoft Entra administrative role review
+Observed state: No Microsoft Entra administrative roles assigned
+Risk assessment: No privileged access identified through the user's Assigned roles view
+Evidence source: Microsoft Entra admin center > Users > David Miller > Assigned roles
+Result: No administrative role remediation required based on this review
+Status: Review completed
+
+
+Investigation Record 007
+IAM LAB 1 — INVESTIGATION RECORD 007
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Enterprise application assignment review
+Observed state: No application assignments listed in the user's Applications section
+Evidence source: Microsoft Entra admin center > Users > David Miller > Applications
+Risk assessment: No application assignments identified in the reviewed view; other application access paths were not assessed
+Result: No application assignment remediation identified from this check
+Status: Review completed
+
+Investigation Record 008
+IAM LAB 1 — INVESTIGATION RECORD 008
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Authentication methods review
+Observed state: No additional registered authentication methods identified; password may still be listed
+Evidence source: Microsoft Entra admin center > Users > David Miller > Authentication methods
+Risk assessment: No additional authentication factors identified in the reviewed view
+Result: No additional authentication method removal required based on this review
+Status: Review completed
+
+IAM LAB 1 — AUDIT EVIDENCE RECORD 009
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Account disablement audit trail verification
+Audit activity: Update user
+Target user: David Miller
+Modified property: accountEnabled
+Previous value: true
+New value: false
+Evidence source: Microsoft Entra admin center > Entra ID > Monitoring & health > Audit logs
+Result: Audit log confirms the account was changed from enabled to disabled
+Status: Verified
+
+
+Audit Evidence Record 010
+ Copy
+IAM LAB 1 — AUDIT EVIDENCE RECORD 010
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Security group membership removal audit verification
+
+Audit activity: Remove member from group
+Target group: SG-Accounting-Staff
+Affected member: David Miller
+Audit status: Success
+
+Audit activity: Remove member from group
+Target group: SG-Finance-Documents
+Affected member: David Miller
+Audit status: Success
+
+Audit Evidence Record 011
+ Copy
+IAM LAB 1 — AUDIT EVIDENCE RECORD 011
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Session revocation audit verification
+
+Audit activity: Update StsRefreshTokenValidFrom Timestamp
+Target user: David Miller
+Audit status: Success
+Audit date: November 3, 2026
+
+Evidence source: Microsoft Entra admin center > Entra ID > Monitoring & health > Audit logs
+Result: Successful refresh-token validity timestamp update recorded for David Miller, supporting the session revocation remediation
+Limitation: This event does not establish that every previously issued access token immediately expired
+Status: Verified
+
+Final Verification Record 012
+ Copy
+IAM LAB 1 — FINAL VERIFICATION RECORD 012
+Client: Harborview Accounting Services
+Affected user: David Miller
+Investigation: Employee offboarding failure
+
+Verification date: November 3, 2026
+
+Control 1: User account disablement
+Verification: Account enabled = No
+Result: Passed
+
+Control 2: Accounting security group removal
+Group: SG-Accounting-Staff
+Verification: David Miller is not listed as a member
+Result: Passed
+
+Control 3: Finance documents security group removal
+Group: SG-Finance-Documents
+Verification: David Miller is not listed as a member
+Result: Passed
+
+Evidence source: Microsoft Entra admin center > Entra ID > Users > David Miller
+Conclusion: Account disablement and removal from both identified security groups remain verified
+Scope limitation: This verification covers the account status and two identified security groups, not every possible access path
+Status: Verified
+
+IAM LAB 1 — ROOT CAUSE ASSESSMENT 013
+Client: Harborview Accounting Services
+Affected user: David Miller
+
+Issue: Former employee account remained enabled with security group memberships after simulated departure.
+
+Observed control gap: The account had not been disabled and the identified group memberships had not been removed before the investigation.
+
+Root cause status: Not confirmed. The lab evidence does not establish whether the issue resulted from a missing offboarding procedure, delayed notification, unclear ownership, or failure to execute an existing process.
+
+Security impact: Potential unauthorized access if valid credentials or sessions were available and the groups granted access to resources.
+
+Assessment: An offboarding control failure was observed. Further process review would be required to establish the underlying organizational cause.
+
+
+IAM LAB 1 — SECURITY RISK ASSESSMENT 014
+Client: Harborview Accounting Services
+Affected user: David Miller
+
+Finding: Former employee account remained enabled with two security group memberships.
+
+Initial risk rating: High (provisional lab assessment)
+
+Likelihood: Elevated due to the account remaining enabled after simulated departure; actual credential possession and misuse were not established.
+
+Potential impact: Unauthorized access to resources if the retained group memberships granted permissions and valid authentication was possible.
+
+Evidence limitations: No sign-in records were found during the investigation. No actual resource access or data exposure was demonstrated.
+
+Remediation status: Account disabled, sessions revoked, and both identified security group memberships removed.
+
+Assessment: High initial risk is a conservative training judgment, not a rating calculated using an approved organizational risk matrix. Residual risk requires separate assessment.
+
+
+Residual Risk Assessment 015
+ Copy
+IAM LAB 1 — RESIDUAL RISK ASSESSMENT 015
+Client: Harborview Accounting Services
+Affected user: David Miller
+
+Original risk rating: High (provisional)
+
+Remediation controls verified:
+- User account disabled
+- Sign-in sessions revoked; supporting audit event verified
+- Removed from SG-Accounting-Staff
+- Removed from SG-Finance-Documents
+- Final account and group membership checks passed
+
+Residual risk rating: Low (provisional, for the specific remediated account and group access paths)
+
+Remaining considerations: Previously issued access tokens may remain usable until expiry. Other access paths, application-local accounts, and potential historical data exposure have not been fully assessed.
+
+Conclusion: The verified remediation substantially reduced the identified access risk. The Low rating is a training estimate, not an organization-approved risk determination.
+
+Status: Remediation verified; residual risk assessment provisional.
+
+
+IAM LAB 1 — SECURITY RECOMMENDATION 016
+Client: Harborview Accounting Services
+
+Recommendation: Establish a formal employee offboarding procedure.
+
+Risk addressed: Former employee accounts remaining enabled with unnecessary access after employment ends.
+
+Recommended control: Require Human Resources or an authorized manager to notify IT of employee departures through a documented offboarding request.
+
+Required IT actions:
+- Disable the departing employee's account at the authorized termination time.
+- Revoke active sign-in sessions.
+- Remove unnecessary security group memberships and application access.
+- Verify that access removal was successful.
+- Retain audit evidence and document completion.
+
+Suggested control owner: IT Operations / Identity and Access Management
+
+Priority: High
+Implementation status: Recommended — not implemented or tested in this lab.
+
+
+Security Recommendation 017
+IAM LAB 1 — SECURITY RECOMMENDATION 017
+Client: Harborview Accounting Services
+
+Recommendation: Implement automated employee offboarding workflows.
+
+Risk addressed: Delayed account disablement and incomplete access removal caused by manual processing errors.
+
+Recommended control: Integrate an authorized HR offboarding process with Microsoft Entra ID and an approved identity lifecycle workflow.
+
+Proposed workflow:
+1. Receive a verified employee termination notification.
+2. Trigger the offboarding workflow at the authorized termination time.
+3. Disable the employee's Microsoft Entra account.
+4. Revoke sign-in sessions.
+5. Remove applicable group memberships and application assignments.
+6. Record completion status and audit evidence.
+7. Alert IT when an action fails or requires manual intervention.
+
+Suggested control owner: Identity and Access Management / IT Operations
+Priority: High
+Implementation status: Recommended — not implemented or tested in this lab.
+
+
+IAM LAB 1 — SECURITY RECOMMENDATION 019
+Client: Harborview Accounting Services
+
+Recommendation: Implement offboarding monitoring and exception alerts.
+
+Risk addressed: Employee accounts remaining enabled or retaining access after an authorized termination date.
+
+Recommended control: Monitor offboarding completion against verified HR termination records and alert IT when required access removal actions are incomplete.
+
+Proposed monitoring requirements:
+- Identify terminated employees whose Microsoft Entra accounts remain enabled.
+- Detect failed or incomplete offboarding workflow actions.
+- Flag outstanding security group and application access removals.
+- Notify designated IT or IAM personnel of exceptions.
+- Track exceptions until remediation is verified.
+- Retain alerts, investigation notes, and closure evidence.
+
+Suggested control owner: IAM / Security Operations
+Priority: High
+Implementation status: Recommended — not implemented or tested in thi
+
+
+Incident Closure Summary 020
+ Copy
+IAM LAB 1 — INCIDENT CLOSURE SUMMARY 020
+Client: Harborview Accounting Services
+Affected user: David Miller
+Incident: Employee Offboarding Failure
+
+Initial finding: Simulated former employee account remained enabled and retained membership in SG-Accounting-Staff and SG-Finance-Documents.
+
+Remediation completed:
+- Disabled David Miller's Microsoft Entra account.
+- Revoked sign-in sessions.
+- Removed both identified security group memberships.
+
+Verification completed:
+- Account enabled = No.
+- Neither identified security group appears in the user's memberships.
+- Account disablement, group removal, and refresh-token timestamp audit events were verified.
+
+Initial risk: High (provisional)
+Residual risk: Low (provisional, limited to remediated access paths)
+
+Outstanding limitations: Other possible access paths and historical data exposure were not fully assessed. The underlying organizational root cause remains unconfirmed.
+
+Closure determination: Identified lab remediation actions completed and verified. This is a technical remediation closure summary, not formal organizational incident closure or risk acceptance.
+
+Status: Technical remediation verified; formal closure not established.
