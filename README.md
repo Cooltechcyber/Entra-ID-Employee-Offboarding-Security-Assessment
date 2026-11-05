@@ -55,3 +55,22 @@ The identified account and group membership risks were remediated and verified t
 No unauthorized access or data exposure was established during the assessment. The root cause of the offboarding failure was not confirmed, and additional access paths were outside the verified remediation scope.
 
 The assessment demonstrates practical IAM investigation, access remediation, audit verification, and security risk documentation skills.
+
+
+## Project Evidence and Documentation
+
+The following resources provide supporting evidence and detailed documentation for this IAM security assessment.
+
+### Technical Evidence
+
+[View Microsoft Entra ID Security Screenshots](screenshots/)
+
+Screenshots document the account investigation, administrative remediation, and available audit verification evidence.
+
+### Security Assessment Reports
+
+- [Final Security Assessment Report](reports/IAM-Lab1-Final-Report.txt)
+- [Investigation Findings](reports/IAM-Lab1-Findings.txt)
+- [Lab Completion Record](reports/IAM-Lab1-Completion.txt)
+
+These documents provide additional details about the assessment scope, identified risks, corrective actions, verification results, and remaining limitations.
